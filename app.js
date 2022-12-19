@@ -15,9 +15,20 @@ function gerenerateRandomColor() {
 }
 
 function setRandomColors() {
-    cols.forEach(col => {
-        col.style.background = gerenerateRandomColor()
+    cols.forEach((col) => {
+        const text = col.querySelector('h2')
+        const color = chroma.random()
+
+        text.textContent = color
+        col.style.background = color
+
+        setTextColor(text, color)
     })
 }
 
+
+function setTextColor(text, color) {
+   const luminence = chroma(color).luminence()
+   text.style.color = luminence < 0.5 ? 'black' : 'white'
+}
 setRandomColors()
